@@ -1,0 +1,65 @@
+You are tasked with developing a full-stack inventory and order management system. Your primary goal is to implement the following features and enhancements comprehensively. Assume a modern web stack (e.g., Node.js/Python backend, React/Vue/Angular frontend, PostgreSQL/MongoDB database). Focus on robust, scalable, and user-friendly solutions.
+
+Core Pages & Navigation:
+
+Implement the following critical pages, ensuring they are fully functional and integrated into the application's navigation:
+
+/returns: Returns & Adjustments
+/payments: Payment Management
+/notifications: Notifications Center
+/settings: Settings Page
+Database Schema Enhancements:
+
+Design and implement the necessary database schema changes and migrations to support:
+
+Warehouse/Location Management: Enable multi-location inventory support, allowing stock to be assigned to specific warehouses or locations.
+Batch/Lot Tracking: Implement fields for batch/lot numbers, manufacturing dates, and expiry dates to ensure traceability and expiry management.
+Payment Tracking: Add fields for payment status (e.g., 'pending', 'paid', 'overdue'), due dates, payment methods, and transaction IDs.
+Returns Management: Include fields for return reasons, return status, and links to original orders and refund processing.
+Audit Logs: Implement a system to track all data changes (who, what, when, old value, new value) for critical entities (e.g., inventory, orders, payments).
+Notifications: Design schema for system notifications and alerts, including type, message, recipient, and read status.
+Advanced Inventory Features:
+
+Develop the backend logic and frontend UI for these inventory functionalities:
+
+Barcode/QR Code Scanning: Integrate a mobile-friendly scanning capability (simulated if direct hardware access isn't possible in Replit, but design for future integration).
+Expiry Date Tracking: Implement logic to track and alert on expiring inventory items.
+Multi-location Stock: Allow users to assign and manage stock levels across different warehouses/locations.
+Batch Number Tracking: Enable tracking of items by batch or lot numbers, especially for regulated items.
+Stock Transfers: Implement functionality to transfer stock between different locations, updating inventory levels accordingly.
+Cycle Counting: Develop a system for periodic inventory verification against physical counts.
+Enhanced Order Management:
+
+Refine the order management module with the following:
+
+Order Status Workflow: Implement a clear order lifecycle: Draft &rarr; Pending &rarr; Approved &rarr; Fulfilled. Allow status transitions.
+Invoice Generation: Enable the conversion of approved orders into printable PDF invoices.
+Payment Integration (Mock): Integrate a mock payment gateway (simulate payment processing and status updates).
+Order Templates: Allow users to create and reuse order templates for frequently placed orders.
+Bulk Operations: Implement features for bulk import and export of orders (CSV).
+Advanced Reporting & Analytics:
+
+Develop dedicated reporting modules with the following reports, ensuring data is accurately pulled and presented:
+
+Profit & Loss Reports: Generate basic financial analysis based on sales and cost data.
+Top Selling Items: Identify and display top-selling products over customizable periods.
+Slow-moving Inventory: Identify and display items with low sales velocity, indicating potential dead stock.
+Customer Analytics: Provide basic insights into customer behavior (e.g., top customers by order value).
+Supplier Performance: Evaluate supplier performance based on factors like delivery times or quality (requires data tracking).
+Export Options: Ensure all reports can be exported to Excel (XLSX), PDF, and CSV formats.
+User Experience Improvements:
+
+Implement the following UI/UX enhancements across the application:
+
+Multi-step Modals: Design and implement multi-step forms using modals for better organization of complex data entry.
+Real-time Calculations: Auto-calculate totals, taxes, and other financial figures as data is entered in forms.
+Search & Filtering: Implement advanced, performant search and filtering capabilities across all data tables (inventory, orders, customers, etc.).
+Bulk Operations (UI): Add mass edit and mass delete functionality where appropriate (e.g., for inventory items, orders).
+Keyboard Shortcuts: Implement common keyboard shortcuts for power users (e.g., to save, navigate, open modals).
+Mobile Optimization: Ensure the entire application is responsive and provides an excellent user experience on mobile devices.
+General Requirements:
+
+Provide clear, clean, and well-commented code.
+Set up necessary project dependencies and a basic README for local setup instructions.
+Prioritize security best practices throughout development.
+Crucially, ensure all features are integrated and function together seamlessly.

@@ -1,0 +1,38 @@
+Sales Order Form: Recommended Layout
+FieldTypeNotesOrder NumberAuto-generatedRead-onlyCustomerDropdown / SearchRequiredOrder DateDate PickerDefaults to todayStatusDropdownDraft, Confirmed, Shipped, Delivered, CancelledPayment StatusDropdownUnpaid, Partially Paid, PaidAdd ItemsDynamic TableAdd multiple products— ProductDropdownProduct lookup— QuantityNumberStock check required— Price / RateAuto-filledEditable— Tax %Dropdown/NumberOptional— Discount %OptionalPer item or order-levelSubtotalAuto-calculatedSum of all itemsTotal TaxAuto-calculatedSum of all taxesGrand TotalAuto-calculatedSubtotal + Tax - DiscountAmount PaidInput (optional)For partial paymentsDue AmountAutoGrand Total - PaidRemarks/NotesTextareaDelivery instructions or notesUpload AttachmentFile (PDF/IMG)Optional invoice, PO refTerms & ConditionsCheckbox / modalOptional consent
+3:50
+Purchase Order Details
+Field NameTypeRequiredDescriptionorderNumberAuto-generated:white_check_mark:Unique ID (e.g. PO-2025-0001)orderDateDate picker:white_check_mark:Defaults to today's datesupplierIdDropdown:white_check_mark:Select from supplier listreferenceNumberText:x:Vendor-provided reference/quotation nodeliveryDateDate picker:x:Expected delivery of itemsdeliveryLocationText / Dropdown:x:Where items are to be received (warehouse etc.)paymentTermsDropdown:white_check_mark:Advance, Net 15, Net 30, Due on DeliverystatusDropdown:white_check_mark:Draft, Ordered, Received, CancelledremarksTextarea:x:Notes for supplier or internal teamsattachmentFile upload:x:Optional supporting docs (PDF/image)
+:package: 2. Product Line Items
+This should be a dynamic product table, where each row includes:
+Field NameTypeRequiredDescriptionproductIdDropdown:white_check_mark:Select from product listquantityNumber:white_check_mark:Quantity to orderpurchasePriceNumber:white_check_mark:Price per unittaxPercentNumber:x:GST/VAT %discountPercentNumber:x:Optional per item discountsubtotalAuto-calc:white_check_mark:(Qty × Price) - Discount + Tax
+:bar_chart: 3. Financial Totals (Auto-calculated)
+Field NameTypeRequiredDescriptiontotalBeforeTaxAuto:white_check_mark:Sum of all item subtotalstotalTaxAuto:white_check_mark:Sum of item-wise taxestotalDiscountAuto:white_check_mark:Sum of all discountsgrandTotalAuto:white_check_mark:Final amount = totalBeforeTax + tax - discountamountPaidNumber:x:Optional upfront paymentamountDueAuto:white_check_mark:grandTotal - amountPaid
+:bust_in_silhouette: 4. Metadata (Optional for Tracking)
+Field NameTypeDescriptioncreatedByAutoCurrent logged-in userapprovedByAutoIf approval workflow existscreatedAtAutoTimestampupdatedAtAutoTimestamp
+:end: Final Field List Summary (Flat Reference)
+markdown
+- orderNumber (string)
+- orderDate (date)
+- supplierId (string)
+- referenceNumber (string)
+- deliveryDate (date)
+- deliveryLocation (string)
+- paymentTerms (enum)
+- status (enum)
+- remarks (text)
+- attachment (file)
+- items[]:
+    - productId
+    - quantity
+    - purchasePrice
+    - taxPercent
+    - discountPercent
+    - subtotal
+- totalBeforeTax
+- totalTax
+- totalDiscount
+- grandTotal
+- amountPaid
+- amountDue
+- createdBy, approvedBy, createdAt, updatedAt

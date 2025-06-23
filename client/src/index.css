@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    /* Force dark mode for the inventory system */
+    @apply bg-gray-900 text-gray-100;
+  }
+
+  /* Ensure all components use dark theme */
+  html {
+    @apply dark;
+  }
+}
+
+/* Custom dark theme overrides for better contrast */
+.bg-gray-800 {
+  background-color: hsl(220, 13%, 13%) !important;
+}
+
+.bg-gray-900 {
+  background-color: hsl(220, 13%, 9%) !important;
+}
+
+.border-gray-700 {
+  border-color: hsl(215, 28%, 17%) !important;
+}
+
+.text-gray-100 {
+  color: hsl(210, 40%, 98%) !important;
+}
+
+.text-gray-200 {
+  color: hsl(210, 40%, 94%) !important;
+}
+
+.text-gray-300 {
+  color: hsl(212, 38%, 85%) !important;
+}
+
+.text-gray-400 {
+  color: hsl(213, 27%, 64%) !important;
+}
+
+/* Blue accent colors matching design */
+.text-blue-400 {
+  color: hsl(207, 90%, 54%) !important;
+}
+
+.bg-blue-600 {
+  background-color: hsl(207, 90%, 54%) !important;
+}
+
+.bg-blue-900\/20 {
+  background-color: hsla(207, 90%, 54%, 0.2) !important;
+}
+
+/* Status colors */
+.bg-green-600 {
+  background-color: hsl(142, 76%, 36%) !important;
+}
+
+.bg-orange-600 {
+  background-color: hsl(32, 95%, 44%) !important;
+}
+
+.bg-red-600 {
+  background-color: hsl(0, 84%, 60%) !important;
+}
+
+.text-green-400 {
+  color: hsl(142, 69%, 58%) !important;
+}
+
+.text-orange-400 {
+  color: hsl(32, 95%, 64%) !important;
+}
+
+.text-red-400 {
+  color: hsl(0, 84%, 70%) !important;
+}
