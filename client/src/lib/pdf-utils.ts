@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import type { PurchaseOrder, SalesOrder, PurchaseOrderItem, SalesOrderItem, Supplier, Customer, Product } from '@shared/schema';
+import type { PurchaseOrder, SalesOrder, PurchaseOrderItem, SalesOrderItem, Supplier, Customer, Product } from '../../../server/shared/schema';
 import { formatCurrency, formatDate } from './utils';
 
 interface PurchaseOrderWithDetails extends PurchaseOrder {

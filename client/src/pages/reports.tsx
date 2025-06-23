@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, Printer, TrendingUp, Package, DollarSign, AlertTriangle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import type { Product, PurchaseOrder, SalesOrder } from "@shared/schema";
+import type { Product, PurchaseOrder, SalesOrder } from '../../shared/schema';
 
 export default function Reports() {
   const { data: products = [] } = useQuery({

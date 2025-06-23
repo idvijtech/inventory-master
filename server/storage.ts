@@ -13,7 +13,7 @@ import {
   type Payment, type InsertPayment, type Notification, type InsertNotification,
   type AuditLog, type InsertAuditLog, type OrderTemplate, type InsertOrderTemplate,
   type CycleCount, type InsertCycleCount, type CycleCountItem, type InsertCycleCountItem
-} from "@shared/schema";
+} from "shared/schema";
 import { db } from './db';
 import { eq, lte } from 'drizzle-orm';
 import { count, sum } from 'drizzle-orm/sql';

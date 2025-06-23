@@ -12,7 +12,7 @@ import { Plus, Search, Edit, Trash2, UserCog, Shield, User } from "lucide-react"
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertUserSchema, type User as UserType } from "@shared/schema";
+import { insertUserSchema, type User as UserType } from '../../shared/schema';
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { z } from "zod";

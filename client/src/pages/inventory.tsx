@@ -12,7 +12,7 @@ import { Plus, Search, ArrowUpCircle, ArrowDownCircle, Settings } from "lucide-r
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertInventoryTransactionSchema, type InventoryTransaction, type Product } from "@shared/schema";
+import { insertInventoryTransactionSchema, type InventoryTransaction, type Product } from "../../shared/schema";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatDateTime } from "@/lib/utils";

@@ -12,7 +12,7 @@ import { Plus, Search, Edit, Trash2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertProductSchema, type Product, type Category } from "@shared/schema";
+import { insertProductSchema, type Product, type Category } from "../../shared/schema";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, generateSKU } from "@/lib/utils";

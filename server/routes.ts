@@ -8,7 +8,7 @@ import {
   insertProductSchema, insertInventoryTransactionSchema, insertPurchaseOrderSchema,
   insertSalesOrderSchema, insertPurchaseOrderItemSchema, insertSalesOrderItemSchema,
   insertWarehouseSchema, insertReturnSchema, insertPaymentSchema, insertNotificationSchema
-} from "@shared/schema";
+} from "shared/schema";
 
 // Configure multer for file uploads
 const upload = multer({

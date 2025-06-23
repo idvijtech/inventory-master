@@ -13,7 +13,7 @@ import { Plus, Search, Eye, ShoppingCart, Truck } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertPurchaseOrderSchema, insertSalesOrderSchema, type PurchaseOrder, type SalesOrder, type Supplier, type Customer } from "@shared/schema";
+import { insertPurchaseOrderSchema, insertSalesOrderSchema, type PurchaseOrder, type SalesOrder, type Supplier, type Customer } from "../../shared/schema";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatDateTime, generateOrderNumber } from "@/lib/utils";

@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
 import { storage } from './storage';
-import { insertProductSchema, insertPurchaseOrderSchema, insertInventoryTransactionSchema } from '@shared/schema';
+import { insertProductSchema, insertPurchaseOrderSchema, insertInventoryTransactionSchema } from './shared/schema';
 
 interface UploadError {
   row: number;

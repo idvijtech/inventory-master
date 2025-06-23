@@ -37,7 +37,7 @@ import { Plus, Search, FileText, Users, Eye, DollarSign, Download } from "lucide
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertSalesOrderSchema, type SalesOrder, type Customer, type Product } from "@shared/schema";
+import { insertSalesOrderSchema, type SalesOrder, type Customer, type Product } from '../../shared/schema';
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatDate, generateOrderNumber } from "@/lib/utils";
