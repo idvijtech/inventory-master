@@ -127,9 +127,16 @@ export default function PurchaseOrders() {
                 New Purchase Order
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto bg-gray-900 border-gray-700">
+            <DialogContent
+              className="max-w-6xl max-h-[90vh] overflow-y-auto bg-gray-900 border-gray-700"
+              aria-describedby="create-purchase-order-description"
+            >
               <DialogHeader>
                 <DialogTitle className="text-white text-xl">Create Purchase Order</DialogTitle>
+                {/* Add a visually hidden description for accessibility */}
+                <span id="create-purchase-order-description" className="sr-only">
+                  Fill out the form to create a new purchase order.
+                </span>
               </DialogHeader>
               <div className="mt-4">
                 <EnhancedPurchaseOrderForm
