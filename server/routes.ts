@@ -8,7 +8,7 @@ import {
   insertProductSchema, insertInventoryTransactionSchema, insertPurchaseOrderSchema,
   insertSalesOrderSchema, insertPurchaseOrderItemSchema, insertSalesOrderItemSchema,
   insertWarehouseSchema, insertReturnSchema, insertPaymentSchema, insertNotificationSchema
-} from "shared/schema";
+} from "@shared/schema";
 
 // Configure multer for file uploads
 const upload = multer({
@@ -308,7 +308,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Extract and transform the enhanced form data
       const { items = [], ...orderFields } = req.body;
-      
+
+      // Ensure grandTotal and totalAmount are always present as strings
+      const grandTotal =
+        orderFields.grandTotal !== undefined
+          ? orderFields.grandTotal
+          : orderFields.totalAmount !== undefined
+            ? orderFields.totalAmount
+            : "0.00";
+      const totalAmount = 
+        orderFields.totalAmount !== undefined
+          ? orderFields.totalAmount
+          : grandTotal;
+
       // Create base order data that matches the schema
       const baseOrderData = {
         orderNumber: orderFields.orderNumber,
@@ -320,7 +332,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         paymentTerms: orderFields.paymentTerms || "net_30",
         status: orderFields.status || "draft",
         remarks: orderFields.remarks || null,
-        totalAmount: orderFields.totalAmount || orderFields.grandTotal || "0.00",
+        totalAmount: totalAmount.toString(),
+        grandTotal: grandTotal.toString(),
         taxAmount: orderFields.totalTax?.toString() || "0.00",
         discountAmount: orderFields.totalDiscount?.toString() || "0.00",
         subtotalAmount: orderFields.totalBeforeTax?.toString() || "0.00",
@@ -328,11 +341,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         paymentStatus: "pending"
       };
       
+
       console.log("Transformed order data:", baseOrderData);
-      
+
       const orderData = insertPurchaseOrderSchema.parse(baseOrderData);
       const order = await storage.createPurchaseOrder(orderData);
-      
+
       // Create order items if provided
       if (items && items.length > 0) {
         for (const item of items) {
@@ -340,21 +354,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
             purchaseOrderId: order.id,
             productId: item.productId,
             quantity: item.quantity,
-            purchasePrice: item.purchasePrice?.toString() || "0.00",
-            taxPercent: item.taxPercent?.toString() || "0.00",
-            discountPercent: item.discountPercent?.toString() || "0.00",
-            unitPrice: item.purchasePrice?.toString() || "0.00",
-            totalPrice: ((item.quantity || 0) * (item.purchasePrice || 0)).toString(),
-            subtotal: ((item.quantity || 0) * (item.purchasePrice || 0)).toString()
+            purchasePrice: String(item.purchasePrice),
+            taxPercent: String(item.taxPercent),
+            discountPercent: String(item.discountPercent),
+            unitPrice: String(item.purchasePrice),
+            totalPrice: String((Number(item.quantity || 0) * Number(item.purchasePrice || 0)).toFixed(2)),
+            subtotal: String((Number(item.quantity || 0) * Number(item.purchasePrice || 0)).toFixed(2))
           };
           await storage.createPurchaseOrderItem(itemData);
         }
       }
-      
+
       res.json(order);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Purchase order creation error:", error);
-      res.status(400).json({ message: "Invalid purchase order data", error: error.message });
+      res.status(400).json({ message: "Invalid purchase order data", error: error.errors ?? error.message });
     }
   });
 
@@ -381,10 +395,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/sales-orders", async (req, res) => {
     try {
       console.log("Received sales order data:", req.body);
-      
+
       // Extract and transform the enhanced form data
       const { items = [], ...orderFields } = req.body;
-      
+
+      // Ensure grandTotal and totalAmount are always present as strings
+      const grandTotal =
+        orderFields.grandTotal !== undefined
+          ? orderFields.grandTotal
+          : orderFields.totalAmount !== undefined
+            ? orderFields.totalAmount
+            : "0.00";
+      const totalAmount =
+        orderFields.totalAmount !== undefined
+          ? orderFields.totalAmount
+          : grandTotal;
+
       // Create base order data that matches the schema
       const baseOrderData = {
         orderNumber: orderFields.orderNumber,
@@ -395,17 +421,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         paymentTerms: orderFields.paymentTerms || "net_30",
         dueDate: orderFields.dueDate || null,
         remarks: orderFields.remarks || null,
-        totalAmount: orderFields.totalAmount || orderFields.grandTotal || "0.00",
+        totalAmount: totalAmount.toString(),
+        grandTotal: grandTotal.toString(),
         taxAmount: orderFields.totalTax?.toString() || "0.00",
         discountAmount: orderFields.totalDiscount?.toString() || "0.00",
         subtotalAmount: orderFields.subtotalAmount?.toString() || "0.00"
       };
-      
+
       console.log("Transformed sales order data:", baseOrderData);
-      
+
       const orderData = insertSalesOrderSchema.parse(baseOrderData);
       const order = await storage.createSalesOrder(orderData);
-      
+
       // Create order items if provided
       if (items && items.length > 0) {
         for (const item of items) {
@@ -424,11 +451,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           await storage.createSalesOrderItem(itemData);
         }
       }
-      
+
       res.json(order);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Sales order creation error:", error);
-      res.status(400).json({ message: "Invalid sales order data", error: error.message });
+      res.status(400).json({ message: "Invalid sales order data", error: error.errors ?? error.message });
     }
   });
 

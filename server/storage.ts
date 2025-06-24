@@ -13,7 +13,7 @@ import {
   type Payment, type InsertPayment, type Notification, type InsertNotification,
   type AuditLog, type InsertAuditLog, type OrderTemplate, type InsertOrderTemplate,
   type CycleCount, type InsertCycleCount, type CycleCountItem, type InsertCycleCountItem
-} from "shared/schema";
+} from "@shared/schema";
 import { db } from './db';
 import { eq, lte } from 'drizzle-orm';
 import { count, sum } from 'drizzle-orm/sql';
@@ -301,21 +301,54 @@ export class PgStorage implements IStorage {
   async getAllPurchaseOrders(): Promise<PurchaseOrder[]> {
     return db.select().from(purchaseOrders);
   }
-  async getPurchaseOrder(id: number): Promise<PurchaseOrder | undefined> { throw new Error('Not implemented'); }
-  async createPurchaseOrder(order: InsertPurchaseOrder): Promise<PurchaseOrder> { throw new Error('Not implemented'); }
-  async updatePurchaseOrder(id: number, order: Partial<InsertPurchaseOrder>): Promise<PurchaseOrder | undefined> { throw new Error('Not implemented'); }
-  async getPurchaseOrderItems(orderId: number): Promise<PurchaseOrderItem[]> { throw new Error('Not implemented'); }
-  async createPurchaseOrderItem(item: InsertPurchaseOrderItem): Promise<PurchaseOrderItem> { throw new Error('Not implemented'); }
+
+  async getPurchaseOrder(id: number): Promise<PurchaseOrder | undefined> {
+    const result = await db.query.purchaseOrders.findFirst({ where: (po) => eq(po.id, id) });
+    return result ?? undefined;
+  }
+
+  async createPurchaseOrder(order: InsertPurchaseOrder): Promise<PurchaseOrder> {
+    const [created] = await db.insert(purchaseOrders).values(order).returning();
+    return created;
+  }
+
+  async updatePurchaseOrder(id: number, order: Partial<InsertPurchaseOrder>): Promise<PurchaseOrder | undefined> {
+    const [updated] = await db.update(purchaseOrders).set(order).where(eq(purchaseOrders.id, id)).returning();
+    return updated ?? undefined;
+  }
+
+  async getPurchaseOrderItems(orderId: number): Promise<PurchaseOrderItem[]> {
+    return db.select().from(purchaseOrderItems).where(eq(purchaseOrderItems.purchaseOrderId, orderId));
+  }
+
+  async createPurchaseOrderItem(item: InsertPurchaseOrderItem): Promise<PurchaseOrderItem> {
+    const [created] = await db.insert(purchaseOrderItems).values(item).returning();
+    return created;
+  }
 
   // Sales Orders
   async getAllSalesOrders(): Promise<SalesOrder[]> {
     return db.select().from(salesOrders);
   }
-  async getSalesOrder(id: number): Promise<SalesOrder | undefined> { throw new Error('Not implemented'); }
-  async createSalesOrder(order: InsertSalesOrder): Promise<SalesOrder> { throw new Error('Not implemented'); }
-  async updateSalesOrder(id: number, order: Partial<InsertSalesOrder>): Promise<SalesOrder | undefined> { throw new Error('Not implemented'); }
-  async getSalesOrderItems(orderId: number): Promise<SalesOrderItem[]> { throw new Error('Not implemented'); }
-  async createSalesOrderItem(item: InsertSalesOrderItem): Promise<SalesOrderItem> { throw new Error('Not implemented'); }
+  async getSalesOrder(id: number): Promise<SalesOrder | undefined> {
+    const result = await db.query.salesOrders.findFirst({ where: (so) => eq(so.id, id) });
+    return result ?? undefined;
+  }
+  async createSalesOrder(order: InsertSalesOrder): Promise<SalesOrder> {
+    const [created] = await db.insert(salesOrders).values(order).returning();
+    return created;
+  }
+  async updateSalesOrder(id: number, order: Partial<InsertSalesOrder>): Promise<SalesOrder | undefined> {
+    const [updated] = await db.update(salesOrders).set(order).where(eq(salesOrders.id, id)).returning();
+    return updated ?? undefined;
+  }
+  async getSalesOrderItems(orderId: number): Promise<SalesOrderItem[]> {
+    return db.select().from(salesOrderItems).where(eq(salesOrderItems.salesOrderId, orderId));
+  }
+  async createSalesOrderItem(item: InsertSalesOrderItem): Promise<SalesOrderItem> {
+    const [created] = await db.insert(salesOrderItems).values(item).returning();
+    return created;
+  }
 
   // Product Warehouse Stock
   async getProductWarehouseStock(productId: number, warehouseId?: number): Promise<ProductWarehouseStock[]> { throw new Error('Not implemented'); }
